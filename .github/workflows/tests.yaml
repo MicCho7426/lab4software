@@ -18,7 +18,7 @@ jobs:
           POSTGRES_DB: medtracker_db
         ports:
           - 5432:5432
-        options: >-
+        options: |
           --health-cmd="pg_isready -U Developer -d medtracker_db"
           --health-interval=10s
           --health-timeout=5s
@@ -43,12 +43,12 @@ jobs:
       - name: Apply migrations
         env:
 
-          DATABASE_URL: postgres://Developer:test@localhost:5432/medtracker_db
+          DATABASE_URL: postgres://medtracker_user:Szymonek94!@localhost:5432/medtracker_db
         run: |
           python manage.py migrate
       - name: Run tests
         env:
 
-          DATABASE_URL: postgres://Developer:test@localhost:5432/medtracker_db
+          DATABASE_URL: postgres://medtracker_user:Szymonek94!@localhost:5432/medtracker_db
         run: |
           python manage.py test medtrackerapp/tests
