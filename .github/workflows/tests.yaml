@@ -13,9 +13,9 @@ jobs:
       postgres:
         image: postgres:18
         env:
-          POSTGRES_USER: medtracker_user
-          POSTGRES_PASSWORD: Szymonek94!
-          POSTGRES_DB: medtracker_db
+          POSTGRES_USER: "medtracker_user"
+          POSTGRES_PASSWORD: "Szymonek94!"
+          POSTGRES_DB: "medtracker_db"
         ports:
           - 5432:5432
         options: |
