@@ -1,4 +1,5 @@
 name: Unit tests
+
 on:
   push:
     branches:
@@ -6,50 +7,55 @@ on:
   pull_request:
     branches:
       - main
+
 jobs:
   test:
     runs-on: ubuntu-latest
+
     services:
       postgres:
         image: postgres:18
         env:
-          POSTGRES_USER: "medtracker_user"
+          POSTGRES_USER: medtracker_user
           POSTGRES_PASSWORD: "Szymonek94!"
-          POSTGRES_DB: "medtracker_db"
-          POSTGRES_HOST_AUTH_METHOD: "trust"
+          POSTGRES_DB: medtracker_db
         ports:
           - 5432:5432
-        options: |
+        options: >-
           --health-cmd="pg_isready -U medtracker_user -d medtracker_db"
-          --health-interval=15s
+          --health-interval=10s
           --health-timeout=5s
-          --health-retries=6
+          --health-retries=5
+
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
       - name: Wait for Postgres
         run: |
-          until pg_isready -h localhost -p 5432; do
+          until pg_isready -h localhost -p 5432 -U medtracker_user -d medtracker_db; do
             echo "Waiting for Postgres..."
             sleep 2
           done
+
       - name: Apply migrations
         env:
-
-          DATABASE_URL: "postgres://medtracker_user:Szymonek94!@localhost:5432/medtracker_db"
+          DATABASE_URL: postgres://medtracker_user:Szymonek94!@localhost:5432/medtracker_db
         run: |
           python manage.py migrate
+
       - name: Run tests
         env:
-
-          DATABASE_URL: "postgres://medtracker_user:Szymonek94!@localhost:5432/medtracker_db"
+          DATABASE_URL: postgres://medtracker_user:Szymonek94!@localhost:5432/medtracker_db
         run: |
           python manage.py test medtrackerapp/tests
