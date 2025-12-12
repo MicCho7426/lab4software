@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Medication, DoseLog
+from .models import Medication, DoseLog, DoctorNote
 from django.utils import timezone
 
 class MedicationSerializer(serializers.ModelSerializer):
@@ -32,3 +32,9 @@ class DoseLogSerializer(serializers.ModelSerializer):
         if value > timezone.now():
             raise serializers.ValidationError("Date cannot be in the future.")
         return value
+
+
+class DoctorNoteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DoctorNote
+        fields = '__all__'
