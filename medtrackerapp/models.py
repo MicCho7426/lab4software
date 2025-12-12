@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import date as _date
 from django.utils import timezone
+from django.core.exceptions import ValidationError
 from .services import DrugInfoService
 
 
@@ -11,10 +12,20 @@ class Medication(models.Model):
     Each Medication instance can have multiple associated DoseLog
     entries that record when doses were taken or missed.
     """
-        
+
     name = models.CharField(max_length=100)
     dosage_mg = models.PositiveIntegerField()
     prescribed_per_day = models.PositiveIntegerField(help_text="Expected number of doses per day")
+
+    def clean(self):
+        if self.dosage_mg is not None and self.dosage_mg <= 0:
+            raise ValidationError({'dosage_mg': 'Dosage must be positive.'})
+        if self.prescribed_per_day is not None and self.prescribed_per_day <= 0:
+            raise ValidationError({'prescribed_per_day': 'Prescribed amount must be positive.'})
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         """Return a human-readable representation of the medication."""
@@ -100,10 +111,8 @@ class Medication(models.Model):
             dict: Drug information data, or {'error': message} if the
                   request fails or the API is unavailable.
         """
-        try:
-            return DrugInfoService.get_drug_info(self.name)
-        except Exception as exc:
-            return {"error": str(exc)}
+        service = DrugInfoService()
+        return service.fetch_external_info(self.name)
 
 
 class DoseLog(models.Model):
@@ -113,7 +122,7 @@ class DoseLog(models.Model):
     Each DoseLog entry corresponds to a specific date/time when the
     medication was either taken or missed.
     """
-        
+
     medication = models.ForeignKey(Medication, on_delete=models.CASCADE)
     taken_at = models.DateTimeField()
     was_taken = models.BooleanField(default=True)
@@ -121,6 +130,14 @@ class DoseLog(models.Model):
     class Meta:
         """Metadata options for the DoseLog model."""
         ordering = ["-taken_at"]
+
+    def clean(self):
+        if self.taken_at and self.taken_at > timezone.now():
+            raise ValidationError({'taken_at': 'Date cannot be in the future.'})
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         """Return a human-readable description of the dose event."""
