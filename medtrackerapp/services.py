@@ -4,10 +4,6 @@ import requests
 class DrugInfoService:
     """
     Wrapper around the OpenFDA Drug Label API.
-
-    This service provides methods to retrieve public drug information
-    such as name, manufacturer, purpose, and warnings from the
-    official OpenFDA API.
     """
 
     BASE_URL = "https://api.fda.gov/drug/label.json"
@@ -15,13 +11,6 @@ class DrugInfoService:
     def fetch_external_info(self, drug_name: str):
         """
         Retrieve drug label information for a given medication name.
-
-        Args:
-            drug_name (str): The name of the medication to search for.
-
-        Returns:
-            dict: A dictionary containing drug info (e.g., brand_name)
-                  or an error key.
         """
         if not drug_name:
             return {"error": "drug_name is required"}
@@ -41,7 +30,6 @@ class DrugInfoService:
 
             record = results[0]
 
-            # Map fields based on what test_services.py expects (brand_name)
             return {
                 "brand_name": record.get("drug_brand_name", [drug_name])[0] if isinstance(record.get("drug_brand_name"),
                                                                                           list) else drug_name,
@@ -51,7 +39,6 @@ class DrugInfoService:
                                                                                         list) else "Unknown",
             }
 
-        except requests.exceptions.RequestException as e:
-            return {"error": f"Connection Error: {str(e)}"}
         except Exception as e:
-            return {"error": f"HTTP Error: {str(e)}"}
+
+            return {"error": f"Connection Error: {str(e)}"}

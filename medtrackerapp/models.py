@@ -18,14 +18,14 @@ class Medication(models.Model):
     prescribed_per_day = models.PositiveIntegerField(help_text="Expected number of doses per day")
 
     def clean(self):
+        """
+        Validates model data.
+        Used primarily for model-level tests (test_models.py).
+        """
         if self.dosage_mg is not None and self.dosage_mg <= 0:
             raise ValidationError({'dosage_mg': 'Dosage must be positive.'})
         if self.prescribed_per_day is not None and self.prescribed_per_day <= 0:
             raise ValidationError({'prescribed_per_day': 'Prescribed amount must be positive.'})
-
-    def save(self, *args, **kwargs):
-        self.full_clean()
-        super().save(*args, **kwargs)
 
     def __str__(self):
         """Return a human-readable representation of the medication."""
@@ -132,12 +132,12 @@ class DoseLog(models.Model):
         ordering = ["-taken_at"]
 
     def clean(self):
+        """
+        Validates model data.
+        Used primarily for model-level tests (test_models.py).
+        """
         if self.taken_at and self.taken_at > timezone.now():
             raise ValidationError({'taken_at': 'Date cannot be in the future.'})
-
-    def save(self, *args, **kwargs):
-        self.full_clean()
-        super().save(*args, **kwargs)
 
     def __str__(self):
         """Return a human-readable description of the dose event."""
