@@ -49,6 +49,31 @@ class MedicationViewTests(APITestCase):
         response = self.client.delete(non_existent_url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
+    # --- Feature 1 Tests ---
+    def test_get_expected_doses_valid(self):
+        url = reverse("medication-expected-doses", kwargs={"pk": self.med.pk})
+        response = self.client.get(f"{url}?days=10")
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["medication_id"], self.med.pk)
+        self.assertEqual(response.data["days"], 10)
+        self.assertEqual(response.data["expected_doses"], 20)
+
+    def test_get_expected_doses_missing_param(self):
+        url = reverse("medication-expected-doses", kwargs={"pk": self.med.pk})
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("error", response.data)
+
+    def test_get_expected_doses_invalid_param(self):
+        url = reverse("medication-expected-doses", kwargs={"pk": self.med.pk})
+        response = self.client.get(f"{url}?days=-5")
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("error", response.data)
+    # -----------------------
+
     @patch('medtrackerapp.views.MedicationViewSet.get_object')
     @patch('medtrackerapp.models.Medication.fetch_external_info')
     def test_get_external_info_success(self, mock_fetch_info, mock_get_object):
