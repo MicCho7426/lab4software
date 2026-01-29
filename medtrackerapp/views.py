@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from django.utils.dateparse import parse_date
 from .models import Medication, DoseLog, DoctorNote
 from .serializers import MedicationSerializer, DoseLogSerializer, DoctorNoteSerializer
+from rest_framework.filters import SearchFilter
+
 
 class MedicationViewSet(viewsets.ModelViewSet):
     queryset = Medication.objects.all()
@@ -60,6 +62,8 @@ class DoctorNoteViewSet(viewsets.ModelViewSet):
     queryset = DoctorNote.objects.all()
     serializer_class = DoctorNoteSerializer
 
+    filter_backends = (SearchFilter,)
+    search_fields = ["medication__name"]
     def update(self, request, *args, **kwargs):
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
