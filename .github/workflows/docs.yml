@@ -40,6 +40,12 @@ jobs:
           python manage.py migrate
           python manage.py generateschema --file openapi-schema.yml
 
+      - name: Upload generated OpenAPI schema
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-openapi-schema
+          path: openapi-schema.yml
+
       - name: Check if docs are up to date
         run: |
           git diff --exit-code openapi-schema.yml
