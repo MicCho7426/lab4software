@@ -6,7 +6,6 @@ from .models import Medication, DoseLog, DoctorNote
 from .serializers import MedicationSerializer, DoseLogSerializer, DoctorNoteSerializer
 from rest_framework.filters import SearchFilter
 
-
 class MedicationViewSet(viewsets.ModelViewSet):
     queryset = Medication.objects.all()
     serializer_class = MedicationSerializer
@@ -52,7 +51,6 @@ class DoseLogViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(logs, many=True)
         return Response(serializer.data)
 
-
 class DoctorNoteViewSet(viewsets.ModelViewSet):
     """
     API endpoint for doctor's notes.
@@ -69,3 +67,4 @@ class DoctorNoteViewSet(viewsets.ModelViewSet):
 
     def partial_update(self, request, *args, **kwargs):
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
