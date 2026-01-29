@@ -53,7 +53,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "medtracker.wsgi.application"
 
-DATABASES = {
+DATABASES_POSTGRES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.getenv("DB_NAME", "medtracker_db"),
@@ -64,6 +64,13 @@ DATABASES = {
     }
 }
 
+DATABASES_SQLITE = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
+
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 USE_I18N = True
@@ -71,3 +78,4 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+DATABASES = DATABASES_SQLITE if os.environ.get("GITHUB_ACTIONS") == "true" else DATABASES_POSTGRES
