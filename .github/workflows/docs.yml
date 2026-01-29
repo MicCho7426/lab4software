@@ -19,7 +19,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.11"
+          python-version: "3.9"
 
       - name: Install dependencies
         run: |
@@ -28,9 +28,13 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Show versions
+        run: |
+          source venv/bin/activate
+          python -V
+          pip freeze | sort
+
       - name: Generate API documentation
-        env:
-          DATABASE_URL: sqlite:///db.sqlite3
         run: |
           source venv/bin/activate
           python manage.py migrate
@@ -39,5 +43,3 @@ jobs:
       - name: Check if docs are up to date
         run: |
           git diff --exit-code openapi-schema.yml
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
