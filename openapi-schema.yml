@@ -1,0 +1,548 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /api/medications/:
+    get:
+      operationId: listMedications
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Medication'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createMedication
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Medication'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Medication'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Medication'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Medication'
+          description: ''
+      tags:
+      - api
+  /api/medications/{id}/:
+    get:
+      operationId: retrieveMedication
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this medication.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Medication'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateMedication
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this medication.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Medication'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Medication'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Medication'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Medication'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateMedication
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this medication.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Medication'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Medication'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Medication'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Medication'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyMedication
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this medication.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/medications/{id}/expected-doses/:
+    get:
+      operationId: expectedDosesMedication
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this medication.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Medication'
+          description: ''
+      tags:
+      - api
+  /api/medications/{id}/info/:
+    get:
+      operationId: getExternalInfoMedication
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this medication.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Medication'
+          description: ''
+      tags:
+      - api
+  /api/logs/:
+    get:
+      operationId: listDoseLogs
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DoseLog'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createDoseLog
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DoseLog'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DoseLog'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DoseLog'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoseLog'
+          description: ''
+      tags:
+      - api
+  /api/logs/filter/:
+    get:
+      operationId: filterByDateDoseLog
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoseLog'
+          description: ''
+      tags:
+      - api
+  /api/logs/{id}/:
+    get:
+      operationId: retrieveDoseLog
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this dose log.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoseLog'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateDoseLog
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this dose log.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DoseLog'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DoseLog'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DoseLog'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoseLog'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateDoseLog
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this dose log.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DoseLog'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DoseLog'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DoseLog'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoseLog'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyDoseLog
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this dose log.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/notes/:
+    get:
+      operationId: listDoctorNotes
+      description: 'API endpoint for doctor''s notes.
+
+        Allows listing, creating, retrieving, and deleting.
+
+        Updates are NOT allowed.'
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DoctorNote'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createDoctorNote
+      description: 'API endpoint for doctor''s notes.
+
+        Allows listing, creating, retrieving, and deleting.
+
+        Updates are NOT allowed.'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DoctorNote'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DoctorNote'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DoctorNote'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoctorNote'
+          description: ''
+      tags:
+      - api
+  /api/notes/{id}/:
+    get:
+      operationId: retrieveDoctorNote
+      description: 'API endpoint for doctor''s notes.
+
+        Allows listing, creating, retrieving, and deleting.
+
+        Updates are NOT allowed.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this doctor note.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoctorNote'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateDoctorNote
+      description: 'API endpoint for doctor''s notes.
+
+        Allows listing, creating, retrieving, and deleting.
+
+        Updates are NOT allowed.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this doctor note.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DoctorNote'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DoctorNote'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DoctorNote'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoctorNote'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateDoctorNote
+      description: 'API endpoint for doctor''s notes.
+
+        Allows listing, creating, retrieving, and deleting.
+
+        Updates are NOT allowed.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this doctor note.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DoctorNote'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DoctorNote'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DoctorNote'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoctorNote'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyDoctorNote
+      description: 'API endpoint for doctor''s notes.
+
+        Allows listing, creating, retrieving, and deleting.
+
+        Updates are NOT allowed.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this doctor note.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+components:
+  schemas:
+    Medication:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        dosage_mg:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        prescribed_per_day:
+          type: integer
+          maximum: 2147483647
+          description: Expected number of doses per day
+          minimum: 0
+        adherence:
+          type: string
+          readOnly: true
+      required:
+      - name
+      - dosage_mg
+      - prescribed_per_day
+    DoseLog:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        medication:
+          type: integer
+        taken_at:
+          type: string
+          format: date-time
+        was_taken:
+          type: boolean
+      required:
+      - medication
+      - taken_at
+    DoctorNote:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        note:
+          type: string
+        created_at:
+          type: string
+          format: date
+        medication:
+          type: integer
+      required:
+      - note
+      - created_at
+      - medication
