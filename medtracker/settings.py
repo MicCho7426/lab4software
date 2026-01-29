@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "medtrackerapp",
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
@@ -52,14 +53,21 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "medtracker.wsgi.application"
 
-DATABASES = {
+DATABASES_POSTGRES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.getenv("DB_NAME", "medtracker_db"),
-        "USER": os.getenv("DB_USER", "Developer"),
-        "PASSWORD": os.getenv("DB_PASSWORD", "test"),
+        "USER": os.getenv("DB_USER", "medtracker_user"),
+        "PASSWORD": os.getenv("DB_PASSWORD", "Szymonek94!"),
         "HOST": os.getenv("DB_HOST", "localhost"),
         "PORT": os.getenv("DB_PORT", "5432"),
+    }
+}
+
+DATABASES_SQLITE = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -70,3 +78,4 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+DATABASES = DATABASES_SQLITE if os.environ.get("GITHUB_ACTIONS") == "true" else DATABASES_POSTGRES
