@@ -1,6 +1,7 @@
 from django.utils import timezone
 
-from .models import DoctorNote
+from .models import DoctorNote, Medication
+
 
 
 def last_notes_for_med(med_id: int, limit: int = 10):

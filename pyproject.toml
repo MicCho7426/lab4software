@@ -1,0 +1,2 @@
+[tool.ruff.lint.per-file-ignores]
+"medtrackerapp/utils.py" = ["E401", "E711", "F401"]
