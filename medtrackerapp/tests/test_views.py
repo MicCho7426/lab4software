@@ -5,7 +5,7 @@ from rest_framework import status
 from unittest.mock import patch
 from datetime import date, timedelta
 from django.utils import timezone
-from django.db import IntegrityError
+
 
 
 class MedicationViewTests(APITestCase):
