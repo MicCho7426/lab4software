@@ -335,7 +335,13 @@ paths:
         Allows listing, creating, retrieving, and deleting.
 
         Updates are NOT allowed.'
-      parameters: []
+      parameters:
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
       responses:
         '200':
           content:
@@ -390,6 +396,12 @@ paths:
         description: A unique integer value identifying this doctor note.
         schema:
           type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
       responses:
         '200':
           content:
@@ -411,6 +423,12 @@ paths:
         in: path
         required: true
         description: A unique integer value identifying this doctor note.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
         schema:
           type: string
       requestBody:
@@ -447,6 +465,12 @@ paths:
         description: A unique integer value identifying this doctor note.
         schema:
           type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -481,6 +505,12 @@ paths:
         description: A unique integer value identifying this doctor note.
         schema:
           type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
       responses:
         '204':
           description: ''
@@ -499,9 +529,13 @@ components:
           maxLength: 100
         dosage_mg:
           type: integer
+          maximum: 2147483647
+          minimum: 0
         prescribed_per_day:
           type: integer
+          maximum: 2147483647
           description: Expected number of doses per day
+          minimum: 0
         adherence:
           type: string
           readOnly: true
