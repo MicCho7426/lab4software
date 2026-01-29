@@ -57,8 +57,8 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.getenv("DB_NAME", "medtracker_db"),
-        "USER": os.getenv("DB_USER", "Developer"),
-        "PASSWORD": os.getenv("DB_PASSWORD", "test"),
+        "USER": os.getenv("DB_USER", "medtracker_user"),
+        "PASSWORD": os.getenv("DB_PASSWORD", "Szymonek94!"),
         "HOST": os.getenv("DB_HOST", "localhost"),
         "PORT": os.getenv("DB_PORT", "5432"),
     }
