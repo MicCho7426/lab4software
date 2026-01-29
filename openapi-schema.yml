@@ -499,13 +499,9 @@ components:
           maxLength: 100
         dosage_mg:
           type: integer
-          maximum: 2147483647
-          minimum: 0
         prescribed_per_day:
           type: integer
-          maximum: 2147483647
           description: Expected number of doses per day
-          minimum: 0
         adherence:
           type: string
           readOnly: true
